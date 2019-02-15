@@ -7,11 +7,7 @@
 
 ### WordPress の REST API で ACF を使う
 
-[ACF to REST API \| WordPress\.org](https://ja.wordpress.org/plugins/acf-to-rest-api/)
-
-を入れると、
-
-`https://works.yuheijotaki.com/wp-json/wp/v2/posts` で出力される JSON に
+[WP REST API](https://ja.wp-api.org/) に加えて、[ACF to REST API \| WordPress\.org](https://ja.wordpress.org/plugins/acf-to-rest-api/) を入れると、`https://works.yuheijotaki.com/wp-json/wp/v2/posts` で出力される JSON に下記のように登録されている各 `acf` のオブジェクトが入る。
 
 ```json
 "acf": {
@@ -19,11 +15,10 @@
   "post_color_letter":"#000000",
   "post_custom_title":"",
   "post_url":"https:\/\/tatsuhikoniijima.com\/",
-  "post_archive":false,"post_thumbnail":173
+  "post_archive":false,
+  "post_thumbnail":173
 }
 ```
-
-のように `acf` のオブジェクトが入る。
 
 ### 参考にした URL など
 
