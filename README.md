@@ -1,2 +1,3 @@
-# vue-study_20190215
-Vue.js for study 20190215
+# Vue.js / JSON から情報を引っ張ってくる その 5
+
+## やること
