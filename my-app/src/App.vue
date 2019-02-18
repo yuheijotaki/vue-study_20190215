@@ -4,20 +4,18 @@
       <h1>works.yuheijotaki.com</h1>
     </header>
     <main>
-      <ul v-for="post in posts" :key="post.title.rendered">
-        <li>
-          <p>title: <a v-bind:href="post.link" target="_blank">{{post.title.rendered}}</a></p>
-          <pre>
-          categories: {{post.categories}}
-          post_color_bg: {{post.acf.post_color_bg}}
-          post_color_letter: {{post.acf.post_color_letter}}
-          post_custom_title: {{post.acf.post_custom_title}}
-          post_url: {{post.acf.post_url}}
-          post_archive: {{post.acf.post_archive}}
-          post_thumbnail: {{post.acf.post_thumbnail}}
-          </pre>
+      <ul>
+        <li v-for="(post,index) in posts" :key="index">
+          <a v-bind:href="post.acf.post_url" target="_blank">
+            <figure><img v-bind:src="post.images.full" v-bind:alt="post.title.rendered"></figure>
+            <div class="wrap" v-bind:style="{ color: post.acf.post_color_letter, background: post.acf.post_color_bg }">
+              <div class="inner">
+                <h2>{{post.title.rendered}}</h2>
+                <p>{{post.category_name}}</p>
+              </div>
+            </div>
+          </a>
         </li>
-        <hr>
       </ul>
     </main>
   </div>
@@ -44,6 +42,7 @@ export default {
       axios.get( 'https://works.yuheijotaki.com/wp-json/wp/v2/posts?per_page=100' )
       .then( response => {
         this.posts = response.data;
+        // console.log(this.posts);
       })
       .catch( error => {
         console.log(error);
@@ -59,23 +58,77 @@ html,* {
   padding: 0
 }
 #app {
-  max-width: 800px;
+  font-family: Helvetica Neue, Helvetica, Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings : "palt";
+  max-width: 1200px;
   margin: 40px auto;
   main {
-    margin-top: 20px;
-    .post_list {
-      padding-left: 1.4em;
+    margin-top: 40px;
+    ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
       li {
-        margin-bottom: 5px;
         font-size: 14px;
         line-height: 1.2;
-        &:last-child {
-          margin-bottom: 0;
+        width: 22%;
+        margin-top: 4%;
+        margin-right: 4%;
+        &:nth-child(-n+4) {
+          margin-top: 0;
+        }
+        &:nth-child(4n) {
+          margin-right: 0;
         }
         a {
-        }
-        pre {
-          font-size: 10px;
+          display: block;
+          text-decoration: none;
+          position: relative;
+          figure {
+            font-size: 0;
+            line-height: 0;
+            img {
+              width: 100%;
+              height: auto;
+            }
+          }
+          .wrap {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            .inner {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 100%;
+              padding: 0 20px;
+              box-sizing: border-box;
+              text-align: center;
+              letter-spacing: 0.025em;
+              h2 {
+                font-size: 16px;
+                line-height: 1.2;
+              }
+              p {
+                margin-top: .5em;
+                font-size: 12px;
+                line-height: 1.4;
+              }
+            }
+          }
+          &:hover {
+            .wrap {
+              display: block;
+            }
+          }
         }
       }
     }
